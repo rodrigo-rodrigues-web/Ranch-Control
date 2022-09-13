@@ -1,0 +1,17 @@
+INSERT INTO tipo_animal VALUES (1, "Vacas de Leite");
+INSERT INTO tipo_animal VALUES (2, "Bezerros Vaca de Leite");
+INSERT INTO tipo_animal VALUES (3, "Gado Nelore");
+INSERT INTO tipo_animal VALUES (4, "Bezerros Gado Nelore");
+INSERT INTO tipo_animal VALUES (5, "Touros");
+INSERT INTO tipo_animal VALUES (6, "Gado Comum");
+INSERT INTO tipo_animal VALUES (8, "Garrotes");
+INSERT INTO tipo_animal VALUES (9, "Bezerros Apartados");
+
+-- populate levantamento
+INSERT INTO levantamento VALUES (null, "Primeiro levantamento", current_date(), "iniciado");
+INSERT INTO levantamento VALUES (null, "Segundo levantamento", current_date(), "encerrado");
+
+-- pupolate animal
+INSERT INTO animal VALUES (null, 8, "animal jovem", 4);
+INSERT INTO animal VALUES (null, 10, "ultima compra", 6);
+INSERT INTO animal VALUES (null, 3, "animal do vizinho", 1);
