@@ -24,4 +24,10 @@ async function getAudits(){
     return rows;
 }
 
-module.exports = {getAudits}
+async function addAudit(audit){
+    const conn = await connect();
+    const sql = "INSERT INTO audit (name, date, status) VALUES (?, CURRENT_DATE(), ?);";
+    return await conn.query(sql, [audit.name, audit.status]);
+}
+
+module.exports = {getAudits, addAudit}
