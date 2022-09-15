@@ -30,4 +30,11 @@ async function addAudit(audit){
     return await conn.query(sql, [audit.name, audit.status]);
 }
 
-module.exports = {getAudits, addAudit}
+async function getAuditInfo(id){
+    const conn = await connect();
+    const [rows] = await conn.query('call show_livestock_audit(?);', id);    
+    
+    return rows;
+}
+
+module.exports = {getAudits, addAudit, getAuditInfo}
