@@ -11,13 +11,13 @@
       <h1><%= title %></h1>
       <div class="list-group">
         <% if(!audits || audits.length === 0) { %>
-          <button type="button" class="list-group-item list-group-item-action">No Audit Registered</button>
+          <a href="/auditinfo/<%= audits.id %> " class="list-group-item list-group-item-action">No Audit Registered</button>
         <% } else { 
           audits.forEach(function(audit){ %>
               <% if(audit.status == 'started') { %>
-              <button type="button" data-id= <%= audit.id %> class="list-group-item list-group-item-action"><%= audit.name %> <span class="badge badge-success">Started</span></button>
+              <a href="/auditinfo/<%= audit.id %>" class="list-group-item list-group-item-action"><%= audit.name %> <span class="badge badge-success">Started</span></a>
               <% } else { %>
-                <button type="button" data-id= <%= audit.id %> class="list-group-item list-group-item-action"><%= audit.name %> <span class="badge badge-danger">Closed</span></button>
+                <a href="/auditinfo/<%= audit.id %>" class="list-group-item list-group-item-action"><%= audit.name %> <span class="badge badge-danger">Closed</span></a>
               <%}%> 
           <%})
         }%>

@@ -37,4 +37,24 @@ async function getAuditInfo(id){
     return rows;
 }
 
-module.exports = {getAudits, addAudit, getAuditInfo}
+async function getUnauditedItems(id){
+    const conn = await connect();
+    const [rows] = await conn.query('call show_unaudited_items(?);', id);    
+    
+    return rows;
+}
+
+async function getAuditName(id){
+    const conn = await connect();
+    const [rows] = await conn.query('SELECT name FROM audit WHERE id = ?;', id);    
+    
+    return rows;
+}
+
+async function addItemToAudit(id, tag){
+    const conn = await connect();
+    const [rows] = await conn.query('call add_livestock_audit(?, ?);',[ id, tag ]);    
+    
+    return rows;
+}
+module.exports = {getAudits, addAudit, getAuditInfo, getAuditName, getUnauditedItems, addItemToAudit}

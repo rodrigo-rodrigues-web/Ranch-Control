@@ -23,9 +23,22 @@ router.post('/newaudit', async function(req, res){
 router.get('/auditinfo/:id', async function(req, res, next) {
   const id = parseInt(req.params.id);
 
-  const results = await global.db.getAuditInfo(id);
-  console.log(results[0]);
-  res.render('auditInfo', { appName: 'Ranch Control', title: 'Audit Information', list:results[0]});
+  const auditedItems = await global.db.getAuditInfo(id);
+  const auditName = await global.db.getAuditName(id);
+  res.render('auditInfo', { appName: 'Ranch Control', auditedItems:auditedItems[0], auditName:auditName[0],  action: '/auditinfo/' + id});
+});
+
+router.post('/auditinfo/:id', async function(req, res, next) {
+  const id = parseInt(req.params.id);
+  const tag = parseInt(req.body.tag);
+  await global.db.addItemToAudit(id, tag);
+
+});
+
+router.get('/getJsonTags/:id', async function(req, res, next) {
+  const id = parseInt(req.params.id);
+  const unaudited = await global.db.getUnauditedItems(id);
+  res.json(unaudited[1])
 });
 
 module.exports = router;
