@@ -1,4 +1,8 @@
 
+if(location.href.indexOf('add=true') != -1){
+    $("#myModal").modal()
+}
+
 // var tagNumbers = ['12','13','125','200','224'];
 let audit_id = location.href.split('/').pop();
 fetch('/getjsontags/'+ audit_id)

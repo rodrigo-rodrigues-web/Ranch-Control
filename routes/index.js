@@ -31,7 +31,13 @@ router.get('/auditinfo/:id', async function(req, res, next) {
 router.post('/auditinfo/:id', async function(req, res, next) {
   const id = parseInt(req.params.id);
   const tag = parseInt(req.body.tag);
-  await global.db.addItemToAudit(id, tag);
+  try {
+    await global.db.addItemToAudit(id, tag);
+  res.redirect('/auditinfo/' +req.params.id + '/?add=true');
+  } catch (error) {
+    res.redirect('/auditinfo/' +req.params.id + '/?error=' + error);
+  }
+  
 
 });
 
