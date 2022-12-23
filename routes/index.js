@@ -1,16 +1,21 @@
 var express = require('express');
 var router = express.Router();
-
+let audits;
 /* GET home page. */
 router.get('/', async function(req, res, next) {
   
-  const results = await global.db.getAudits();
-  res.render('index', { appName: 'Ranch Control', title: 'Manage Audit', audits: results });
+  audits = await global.db.getAudits();
+  res.render('index', { appName: 'Ranch Control', title: 'Manage Audit', audits });
 });
 
 router.post('/newaudit', async function(req, res){
   const name = req.body.auditName;
-
+  // const auditExist = audits.map(e => e.name).indexOf(name);
+  // if(auditExist){
+  //   console.log("Audit alredy exist");
+  //   return;
+  // }
+  
   try {
     await global.db.addAudit({ name , status: 'started'});
     res.redirect('/?new=true');
@@ -31,6 +36,7 @@ router.get('/auditinfo/:id', async function(req, res, next) {
 router.post('/auditinfo/:id', async function(req, res, next) {
   const id = parseInt(req.params.id);
   const tag = parseInt(req.body.tag);
+  console.log(id, " ", tag);
   try {
     await global.db.addItemToAudit(id, tag);
   res.redirect('/auditinfo/' +req.params.id + '/?add=true');
@@ -38,13 +44,12 @@ router.post('/auditinfo/:id', async function(req, res, next) {
     res.redirect('/auditinfo/' +req.params.id + '/?error=' + error);
   }
   
-
 });
 
 router.get('/getJsonTags/:id', async function(req, res, next) {
   const id = parseInt(req.params.id);
   const unaudited = await global.db.getUnauditedItems(id);
-  res.json(unaudited[1])
+  res.json(unaudited[0]);
 });
 
 module.exports = router;
