@@ -51,10 +51,16 @@ async function getAuditName(id){
     return rows;
 }
 
-async function addItemToAudit(id, tag){
+async function addLivestockAudit(id, tag){
     const conn = await connect();
     const [rows] = await conn.query('call add_livestock_audit(?, ?);',[ id, tag ]);    
     
     return rows;
 }
-module.exports = {getAudits, addAudit, getAuditInfo, getAuditName, getUnauditedItems, addItemToAudit}
+async function removeLivestockAudit(id, tag){
+    const conn = await connect();
+    const [rows] = await conn.query('call remove_livestock_audit(?, ?);',[ id, tag ]);    
+    
+    return rows;
+}
+module.exports = {getAudits, addAudit, getAuditInfo, getAuditName, getUnauditedItems, addLivestockAudit, removeLivestockAudit}

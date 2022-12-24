@@ -30,18 +30,31 @@ router.get('/auditinfo/:id', async function(req, res, next) {
 
   const auditedItems = await global.db.getAuditInfo(id);
   const auditName = await global.db.getAuditName(id);
-  res.render('auditInfo', { appName: 'Ranch Control', auditedItems:auditedItems[0], auditName:auditName[0],  action: '/auditinfo/' + id});
+
+  res.render('auditInfo', { appName: 'Ranch Control', auditedItems:auditedItems[0], auditName:auditName[0],  action: '/auditinfo/' + id, auditId:id});
 });
 
 router.post('/auditinfo/:id', async function(req, res, next) {
   const id = parseInt(req.params.id);
   const tag = parseInt(req.body.tag);
-  console.log(id, " ", tag);
+
   try {
-    await global.db.addItemToAudit(id, tag);
-  res.redirect('/auditinfo/' +req.params.id + '/?add=true');
+    await global.db.addLivestockAudit(id, tag);
+    res.redirect('/auditinfo/' +req.params.id + '/?add=true');
   } catch (error) {
     res.redirect('/auditinfo/' +req.params.id + '/?error=' + error);
+  }
+  
+});
+router.get('/auditinfo/delete/:tag', async function(req, res, next) {
+  const tag = parseInt(req.params.tag);
+  const auditId = parseInt(req.query.audit);
+
+  try {
+    await global.db.removeLivestockAudit(auditId, tag);
+    res.redirect('/auditinfo/' +auditId);
+  } catch (error) {
+    // res.redirect('/auditinfo/' +req.params.tag + '/?error=' + error);
   }
   
 });
