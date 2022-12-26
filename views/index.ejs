@@ -4,24 +4,36 @@
     <title><%= appName %></title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
   </head>
   <body>
     
     <div class="container">
       <h1><%= title %></h1>
-      <div class="list-group">
-        <% if(!audits || audits.length === 0) { %>
-          <a href="/auditinfo/<%= audits.id %> " class="list-group-item list-group-item-action">No Audit Registered</button>
-        <% } else { 
-          audits.forEach(function(audit){ %>
-              <% if(audit.status == 'started') { %>
-              <a href="/auditinfo/<%= audit.id %>" class="list-group-item list-group-item-action"><%= audit.name %> <span class="badge badge-success">Started</span></a>
-              <% } else { %>
-                <a href="/auditinfo/<%= audit.id %>" class="list-group-item list-group-item-action"><%= audit.name %> <span class="badge badge-danger">Closed</span></a>
-              <%}%> 
-          <%})
-        }%>
-      </div>
+      <table class="table table-sm">
+        <tbody>
+          
+          <% if(!audits || audits.length === 0) { %>
+            <td><a href="/auditinfo/<%= audits.id %> " class="list-group-item list-group-item-action">No Audit Registered</button></td>
+          <% } else { 
+            audits.forEach(function(audit){ %>
+                <% if(audit.status == 'started') { %>
+                <tr>
+                  <td><a href="/auditinfo/<%= audit.id %>" class="list-group-item list-group-item-action"><%= audit.name %> <span class="badge badge-success ml-2">Started</span></a></td>
+                  <td><a href="/delete/<%= audit.id %>" onclick="return confirm('Tem certeza?');"><i class="fa fa-trash-o text-primary mt-3" style="font-size:24px"></i></td></a>
+                </tr>  
+                <% } else { %>
+                <tr>
+                  <td><a href="/auditinfo/<%= audit.id %>" class="list-group-item list-group-item-action"><%= audit.name %> <span class="badge badge-danger ml-2">Closed</span></a></td>
+                  <td><a href="/delete/<%= audit.id %>" onclick="return confirm('Tem certeza?');"><i class="fa fa-trash-o text-primary mt-3" style="font-size:24px"></i></td></a>
+                </tr> 
+                <%}%> 
+            <%})
+          }%>
+        </tbody>
+      </table>
+
       <br>
       <div class="row">
         <div class="col-sm">

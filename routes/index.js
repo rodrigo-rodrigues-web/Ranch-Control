@@ -54,7 +54,18 @@ router.get('/auditinfo/delete/:tag', async function(req, res, next) {
     await global.db.removeLivestockAudit(auditId, tag);
     res.redirect('/auditinfo/' +auditId);
   } catch (error) {
-    // res.redirect('/auditinfo/' +req.params.tag + '/?error=' + error);
+    res.send(error);
+  }
+  
+});
+router.get('/delete/:id', async function(req, res, next) {
+  const id = parseInt(req.params.id);
+
+  try {
+    await global.db.removeAudit(id);
+    res.redirect('/');
+  } catch (error) {
+    res.send(error);
   }
   
 });

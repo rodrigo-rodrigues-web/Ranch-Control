@@ -63,4 +63,13 @@ async function removeLivestockAudit(id, tag){
     
     return rows;
 }
-module.exports = {getAudits, addAudit, getAuditInfo, getAuditName, getUnauditedItems, addLivestockAudit, removeLivestockAudit}
+async function removeAudit(id){
+    const conn = await connect();
+    await conn.query('DELETE FROM audit_livestock where fk_audit_id = ?;', id);    
+    const [rows] = await conn.query('DELETE FROM audit WHERE id =?;', id);    
+    
+    return rows;
+}
+module.exports = {getAudits, addAudit, getAuditInfo, getAuditName, 
+                getUnauditedItems, addLivestockAudit, removeLivestockAudit,
+                removeAudit}
