@@ -1,11 +1,12 @@
 var express = require('express');
 var router = express.Router();
 let audits;
+let alert;
 /* GET home page. */
 router.get('/', async function(req, res, next) {
-  
+  alert = {display:"display:none", message:"The audit name already exist. Enter a unique name."}
   audits = await global.db.getAudits();
-  res.render('index', { appName: 'Ranch Control', title: 'Manage Audit', audits });
+  res.render('index', { appName: 'Ranch Control', title: 'Manage Audit', audits, alert });
 });
 
 router.post('/newaudit', async function(req, res){
@@ -14,7 +15,9 @@ router.post('/newaudit', async function(req, res){
   const auditExist = await global.db.getAuditByName(auditName);
   
   if (auditExist) {
-    console.log("Audit alredy exist");
+    alert.display = "display:block";
+    // res.redirect('/');
+    res.render('index', { appName: 'Ranch Control', title: 'Manage Audit', audits, alert });
     return;
   }
   try {
@@ -22,7 +25,7 @@ router.post('/newaudit', async function(req, res){
     res.redirect('/');
 
   } catch (error) {
-    res.redirect('/?error=' + error);
+    res.send('error');
   }
 });
 
