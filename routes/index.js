@@ -9,16 +9,17 @@ router.get('/', async function(req, res, next) {
 });
 
 router.post('/newaudit', async function(req, res){
-  const name = req.body.auditName;
-  // const auditExist = audits.map(e => e.name).indexOf(name);
-  // if(auditExist){
-  //   console.log("Audit alredy exist");
-  //   return;
-  // }
+
+  const auditName = req.body.auditName
+  const auditExist = await global.db.getAuditByName(auditName);
   
+  if (auditExist) {
+    console.log("Audit alredy exist");
+    return;
+  }
   try {
-    await global.db.addAudit({ name , status: 'started'});
-    res.redirect('/?new=true');
+    await global.db.addAudit({ auditName , status: 'started'});
+    res.redirect('/');
 
   } catch (error) {
     res.redirect('/?error=' + error);

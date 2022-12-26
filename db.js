@@ -27,7 +27,7 @@ async function getAudits(){
 async function addAudit(audit){
     const conn = await connect();
     const sql = "INSERT INTO audit (name, date, status) VALUES (?, CURRENT_DATE(), ?);";
-    return await conn.query(sql, [audit.name, audit.status]);
+    return await conn.query(sql, [audit.auditName, audit.status]);
 }
 
 async function getAuditInfo(id){
@@ -50,11 +50,19 @@ async function getAuditName(id){
     
     return rows;
 }
+async function getAuditByName(name){
+    const conn = await connect();
+    const [rows] = await conn.query('SELECT * FROM audit WHERE name = ?;', name);  
+    if (rows.length===0) {
+        return false;
+    }
+    return true;
+}
 
 async function addLivestockAudit(id, tag){
     const conn = await connect();
     const [rows] = await conn.query('call add_livestock_audit(?, ?);',[ id, tag ]);    
-    
+ 
     return rows;
 }
 async function removeLivestockAudit(id, tag){
@@ -72,4 +80,4 @@ async function removeAudit(id){
 }
 module.exports = {getAudits, addAudit, getAuditInfo, getAuditName, 
                 getUnauditedItems, addLivestockAudit, removeLivestockAudit,
-                removeAudit}
+                removeAudit, getAuditByName}
