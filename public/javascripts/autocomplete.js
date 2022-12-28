@@ -3,19 +3,6 @@ if(location.href.indexOf('add=true') != -1){
     $("#myModal").modal()
 }
 
-// var tagNumbers = ['12','13','125','200','224'];
-
-let audit_id = document.getElementById("cattleList").getAttribute("data-audit_id");
-fetch('/getjsontags/'+ audit_id)
-  .then(response => {
-    return response.json();
-  })
-  .then(tags => {
-    let tagNumbers = (tags.map(p => p.tag.toString()));
-
-    autocomplete(document.getElementById("tag"), tagNumbers);
-  });
-
 function autocomplete(inp, arr) {
     /*the autocomplete function takes two arguments,
     the text field element and an array of possible autocompleted values:*/

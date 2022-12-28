@@ -81,8 +81,14 @@
     <script>
       $(document).ready(function () {
           var table = $('#cattleList').DataTable();
+          let tags = '<%- jsontags %>';
+          tags = JSON.parse(tags);
+          let tagNumbers = (tags.map(p => p.tag.toString()));
+
+          autocomplete(document.getElementById("tag"), tagNumbers);
 
       });
+      
     </script>
     
   </body>

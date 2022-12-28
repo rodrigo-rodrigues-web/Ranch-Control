@@ -34,8 +34,11 @@ router.get('/auditinfo/:id', async function(req, res, next) {
 
   const auditedItems = await global.db.getAuditInfo(id);
   const auditName = await global.db.getAuditName(id);
+  const unaudited = await global.db.getUnauditedItems(id);
 
-  res.render('auditInfo', { appName: 'Ranch Control', auditedItems:auditedItems[0], auditName:auditName[0],  action: '/auditinfo/' + id, auditId:id});
+  res.render('auditInfo', { appName: 'Ranch Control', auditedItems:auditedItems[0], 
+                          auditName:auditName[0],  action: '/auditinfo/' + id, auditId:id, 
+                          jsontags:JSON.stringify(unaudited[0])});
 });
 
 router.post('/auditinfo/:id', async function(req, res, next) {
