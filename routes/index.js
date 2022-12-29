@@ -1,4 +1,5 @@
 var express = require('express');
+const { disabled } = require('../app');
 var router = express.Router();
 let audits;
 let alert;
@@ -6,7 +7,7 @@ let alert;
 router.get('/', async function(req, res, next) {
   alert = {display:"display:none", message:"The audit name already exist. Enter a unique name."}
   audits = await global.db.getAudits();
-  res.render('index', { appName: 'Ranch Control', title: 'Manage Audit', audits, alert });
+  res.render('index', { appName: 'Ranch Control', title: 'Manage Audit', audits, alert, hidden:'' });
 });
 
 router.post('/newaudit', async function(req, res){
@@ -34,11 +35,15 @@ router.get('/auditinfo/:id', async function(req, res, next) {
 
   const auditedItems = await global.db.getAuditInfo(id);
   const auditName = await global.db.getAuditName(id);
-  const unaudited = await global.db.getUnauditedItems(id);
-
-  res.render('auditInfo', { appName: 'Ranch Control', auditedItems:auditedItems[0], 
-                          auditName:auditName[0],  action: '/auditinfo/' + id, auditId:id, 
-                          jsontags:JSON.stringify(unaudited[0])});
+  const unauditedItems = await global.db.getUnauditedItems(id);
+  let auditinfo = { appName: 'Ranch Control'};
+  auditinfo.auditedItems = auditedItems[0];
+  auditinfo.auditName = auditName[0].name;
+  auditinfo.action= '/auditinfo/' + id;
+  auditinfo.auditId= id;
+  auditinfo.jsontags= JSON.stringify(unauditedItems[0]);
+  auditinfo.hidden = 'hidden';
+  res.render('auditInfo', auditinfo);
 });
 
 router.post('/auditinfo/:id', async function(req, res, next) {
@@ -77,10 +82,13 @@ router.get('/delete/:id', async function(req, res, next) {
   
 });
 
-router.get('/getJsonTags/:id', async function(req, res, next) {
-  const id = parseInt(req.params.id);
-  const unaudited = await global.db.getUnauditedItems(id);
-  res.json(unaudited[0]);
-});
+// router.get('/getJsonTags/:id', async function(req, res, next) {
+//   const id = parseInt(req.params.id);
+//   const unaudited = await global.db.getUnauditedItems(id);
+//   res.json(unaudited[0]);
+// });
 
+router.get('/nav', async function(req, res, next) {
+  res.render('nav');
+});
 module.exports = router;

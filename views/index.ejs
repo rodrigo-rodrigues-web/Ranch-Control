@@ -8,35 +8,42 @@
 
   </head>
   <body>
-    
-    <div class="container">
-      <h1><%= title %></h1>
-      <div id="fail" class="alert alert-danger fade show" role="alert" style=<%= alert.display %>>
-        <%= alert.message %>
-      </div>
-
-      <table class="table table-sm">
-        <tbody>
-          
-          <% if(!audits || audits.length === 0) { %>
-            <td><a href="/auditinfo/<%= audits.id %> " class="list-group-item list-group-item-action">No Audit Registered</button></td>
-          <% } else { 
-            audits.forEach(function(audit){ %>
-                <% if(audit.status == 'started') { %>
-                <tr>
-                  <td><a href="/auditinfo/<%= audit.id %>" class="list-group-item list-group-item-action"><%= audit.name %> <span class="badge badge-success ml-2">Started</span></a></td>
-                  <td><a href="/delete/<%= audit.id %>" onclick="return confirm('Tem certeza?');"><i class="fa fa-trash-o text-primary mt-3" style="font-size:24px"></i></td></a>
-                </tr>  
-                <% } else { %>
-                <tr>
-                  <td><a href="/auditinfo/<%= audit.id %>" class="list-group-item list-group-item-action"><%= audit.name %> <span class="badge badge-danger ml-2">Closed</span></a></td>
-                  <td><a href="/delete/<%= audit.id %>" onclick="return confirm('Tem certeza?');"><i class="fa fa-trash-o text-primary mt-3" style="font-size:24px"></i></td></a>
-                </tr> 
-                <%}%> 
-            <%})
-          }%>
-        </tbody>
-      </table>
+    <!--Navigation bar-->
+    <%- include('./nav'); %>
+    <!--end of Navigation bar-->
+  
+    <div  class="container">
+          <div class="jumbotron jumbotron-fluid">
+            <div class="container">
+              <h1 class="display-4"><%= title %></h1>
+              <p class="lead">Select the audit name to view more details.</p>
+            </div>
+          </div>
+          <div id="fail" class="alert alert-danger fade show" role="alert" style=<%= alert.display %>>
+            <%= alert.message %>
+          </div>
+        <table class="table table-sm">
+          <tbody>
+            
+            <% if(!audits || audits.length === 0) { %>
+              <td><a href="/auditinfo/<%= audits.id %> " class="list-group-item list-group-item-action">No Audit Registered</button></td>
+            <% } else { 
+              audits.forEach(function(audit){ %>
+                  <% if(audit.status == 'started') { %>
+                  <tr>
+                    <td><a href="/auditinfo/<%= audit.id %>" class="list-group-item list-group-item-action"><%= audit.name %> <span class="badge badge-success ml-2">Started</span></a></td>
+                    <td><a href="/delete/<%= audit.id %>" onclick="return confirm('Tem certeza?');"><i class="fa fa-trash-o text-primary mt-3" style="font-size:24px"></i></td></a>
+                  </tr>  
+                  <% } else { %>
+                  <tr>
+                    <td><a href="/auditinfo/<%= audit.id %>" class="list-group-item list-group-item-action"><%= audit.name %> <span class="badge badge-danger ml-2">Closed</span></a></td>
+                    <td><a href="/delete/<%= audit.id %>" onclick="return confirm('Tem certeza?');"><i class="fa fa-trash-o text-primary mt-3" style="font-size:24px"></i></td></a>
+                  </tr> 
+                  <%}%> 
+              <%})
+            }%>
+          </tbody>
+        </table>
 
       <br>
       <div class="row">
@@ -52,36 +59,36 @@
         </div>
       </div>
 
-<!-- Modal -->
-<div class="modal fade" id="modalNewAudit" tabindex="-1" aria-labelledby="modalNewAuditLabel" aria-hidden="true">
-  <div class="modal-dialog">
-      <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="modalNewAuditLabel">Add New Audit</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
+      <!-- Modal -->
+      <div class="modal fade" id="modalNewAudit" tabindex="-1" aria-labelledby="modalNewAuditLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="modalNewAuditLabel">Add New Audit</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+              <form action="newaudit" method="POST">
+                <div class="modal-body">
+                  <div class="form-group">
+                    <label for="newAuditName">Enter a New Audit name</label>
+                    <input type="text" name="auditName" class="form-control" id="newAuditName" aria-describedby="auditName" placeholder="Winter Audit 2022">
+                    <small id="auditName" class="form-text text-muted">Audit names should be unique</small>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+              </form>
           </div>
-        <form action="newaudit" method="POST">
-          <div class="modal-body">
-            <div class="form-group">
-              <label for="newAuditName">Enter a New Audit name</label>
-              <input type="text" name="auditName" class="form-control" id="newAuditName" aria-describedby="auditName" placeholder="Winter Audit 2022">
-              <small id="auditName" class="form-text text-muted">Audit names should be unique</small>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary">Save changes</button>
-          </div>
-        </form>
-     </div>
-  </div>
-</div>
+        </div>
+      </div>
     </div> <!-- End of Container-->
 
     <!-- Bootstrap CDN -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script> 
     
