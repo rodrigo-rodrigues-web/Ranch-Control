@@ -34,7 +34,7 @@ async function getAuditInfo(id){
     const conn = await connect();
     const [rows] = await conn.query('call show_livestock_audit(?);', id);    
     
-    return rows;
+    return rows[0];
 }
 
 async function getUnauditedItems(id){
@@ -78,6 +78,13 @@ async function removeAudit(id){
     
     return rows;
 }
+async function getLivestockDetails(tag){
+    const conn = await connect();
+    const sql = "SELECT l.tag, l.months_age, l.note, l.color, l.weight, lt.name as 'type', c.stage FROM livestock as l, livestock_type as lt, category as c WHERE l.fk_livestock_type_id = lt.id AND  l.fk_category_id = c.id AND l.tag = ?;";
+    const [rows] = await conn.query(sql, tag);
+    
+    return rows[0];
+}
 module.exports = {getAudits, addAudit, getAuditInfo, getAuditName, 
                 getUnauditedItems, addLivestockAudit, removeLivestockAudit,
-                removeAudit, getAuditByName}
+                removeAudit, getAuditByName, getLivestockDetails}

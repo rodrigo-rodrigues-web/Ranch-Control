@@ -17,7 +17,6 @@ router.post('/newaudit', async function(req, res){
   
   if (auditExist) {
     alert.display = "display:block";
-    // res.redirect('/');
     res.render('index', { appName: 'Ranch Control', title: 'Manage Audit', audits, alert });
     return;
   }
@@ -37,7 +36,7 @@ router.get('/auditinfo/:id', async function(req, res, next) {
   const auditName = await global.db.getAuditName(id);
   const unauditedItems = await global.db.getUnauditedItems(id);
   let auditinfo = { appName: 'Ranch Control'};
-  auditinfo.auditedItems = auditedItems[0];
+  auditinfo.auditedItems = auditedItems;
   auditinfo.auditName = auditName[0].name;
   auditinfo.action= '/auditinfo/' + id;
   auditinfo.auditId= id;
@@ -82,13 +81,15 @@ router.get('/delete/:id', async function(req, res, next) {
   
 });
 
-// router.get('/getJsonTags/:id', async function(req, res, next) {
-//   const id = parseInt(req.params.id);
-//   const unaudited = await global.db.getUnauditedItems(id);
-//   res.json(unaudited[0]);
-// });
-
-router.get('/nav', async function(req, res, next) {
-  res.render('nav');
+router.get('/livestockdetails/:tag', async function(req, res, next) {
+  const tag = req.params.tag;
+  let details = await global.db.getLivestockDetails(tag);
+  details.hidden = 'hidden';
+  console.log(details);
+  res.render('livestockdetails', details);
 });
+
+// router.get('/nav', async function(req, res, next) {
+//   res.render('nav');
+// });
 module.exports = router;
