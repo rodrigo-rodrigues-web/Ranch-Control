@@ -83,7 +83,17 @@
     <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap4.min.js"></script>
     <script>
       $(document).ready(function () {
-          var table = $('#cattleList').DataTable();
+          var table = $('#cattleList').DataTable({
+            "initComplete": function () {
+                    $( document ).on("click", "tbody", function(e){
+                      e.preventDefault();
+                      e.stopPropagation();
+                      const selectedRow = e.target.parentNode;
+                      console.log(selectedRow);
+                    });
+                }
+          });
+          
           let tags = '<%- jsontags %>';
           tags = JSON.parse(tags);
           let tagNumbers = (tags.map(p => p.tag.toString()));
