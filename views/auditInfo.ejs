@@ -45,7 +45,10 @@
               <td><%= animal.type %> </td>
               <td><%= animal.months_age %> </td>
               <td><%= animal.notes %> </td>
-              <td><a href="/auditinfo/delete/<%= animal.tag %>?audit=<%= auditId %>" onclick="return confirm('Tem certeza?');"><i class="fa fa-trash-o text-primary" style="font-size:24px"></i></a></td>
+              <td>
+                <a href="/auditinfo/delete/<%= animal.tag %>?audit=<%= auditId %>" onclick="return confirm('Tem certeza?');"><i class="fa fa-trash-o text-primary m-2" style="font-size:24px"></i></a>       
+                <a href="/livestockdetails/<%= animal.tag %>"><i class="fa fa-arrows-alt m-2" aria-hidden="true" style="font-size:24px"></i></a>
+              </td>
             </tr>
           <%}) %>
         </tbody>
@@ -84,14 +87,14 @@
     <script>
       $(document).ready(function () {
           var table = $('#cattleList').DataTable({
-            "initComplete": function () {
-                    $( document ).on("click", "tbody", function(e){
-                      // e.preventDefault();
-                      // e.stopPropagation();
-                      const selectedRow = e.target.parentNode;
-                      console.log(selectedRow);
-                    });
-                }
+            // "initComplete": function () {
+            //         $( document ).on("click", "tbody", function(e){
+            //           // e.preventDefault();
+            //           // e.stopPropagation();
+            //           const selectedRow = e.target.parentNode;
+            //           console.log(selectedRow);
+            //         });
+            //     }
           });
           
           let tags = '<%- jsontags %>';
