@@ -22,12 +22,12 @@
                 <input type="text" class="form-control" id="inputType4" placeholder="Type" value="<%= type %>">
               </div>
               <div class="form-group col-sm-3">
-                <label for="inputAge">Months Age</label>
-                <input type="text" class="form-control" id="inputAge" placeholder="Months Age" value="<%= months_age %>">
+                <label for="inputAge">Age in Months</label>
+                <input type="text" class="form-control" id="inputAge" placeholder="Age in Months" value="<%= months_age %>">
               </div>
               <div class="form-group col-sm-3">
                 <label for="inputBirth">Date of Birth</label>
-                <input type="date" class="form-control" id="inputBirth">
+                <input type="date" class="form-control" id="inputBirth" value="<%= date_of_birth %>">
               </div>              
             </div>
             <div class="form-row">
@@ -52,10 +52,14 @@
                     <label class="input-group-text" for="inputGroupStage">Stage</label>
                   </div>
                   <select class="custom-select" id="inputGroupStage">
-                    <option selected>Choose...</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
+                    <% const s = "selected" %>
+                    <option selected>Choose...</option>                    
+                    <option <% if(stage === "Vitelo") { %><%= s %><% } %>>Vitelo</option>
+                    <option <% if(stage === "Novilho super precoce") { %><%= s %><% } %>>Novilho super precoce</option>
+                    <option <% if(stage === "Novilho precoce") { %><%= s %><% } %>>Novilho precoce</option>
+                    <option <% if(stage === "Novilho") { %><%= s %><% } %>>Novilho</option>
+                    <option <% if(stage === "Boi") { %><%= s %><% } %>>Boi</option>
+                    <option <% if(stage === "Touros") { %><%= s %><% } %>>Touros</option>
                   </select>
                 </div>
               </div>          
