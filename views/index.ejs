@@ -32,12 +32,12 @@
                   <% if(audit.status == 'started') { %>
                   <tr>
                     <td><a href="/auditinfo/<%= audit.id %>" class="list-group-item list-group-item-action"><%= audit.name %> <span class="badge badge-success ml-2">Started</span></a></td>
-                    <td><a href="/delete/<%= audit.id %>" onclick="return confirm('Tem certeza?');"><i class="fa fa-trash-o text-primary mt-3" style="font-size:24px"></i></td></a>
+                    <td><a href="/delete/<%= audit.id %>" onclick="return confirm('Tem certeza?');" data-toggle="tooltip" data-placement="top" title="Delete Audit"><i class="fa fa-trash-o text-primary mt-3" style="font-size:24px"></i></td></a>
                   </tr>  
                   <% } else { %>
                   <tr>
                     <td><a href="/auditinfo/<%= audit.id %>" class="list-group-item list-group-item-action"><%= audit.name %> <span class="badge badge-danger ml-2">Closed</span></a></td>
-                    <td><a href="/delete/<%= audit.id %>" onclick="return confirm('Tem certeza?');"><i class="fa fa-trash-o text-primary mt-3" style="font-size:24px"></i></td></a>
+                    <td><a href="/delete/<%= audit.id %>" onclick="return confirm('Tem certeza?');" data-toggle="tooltip" data-placement="top" title="Delete Audit"><i class="fa fa-trash-o text-primary mt-3" style="font-size:24px"></i></td></a>
                   </tr> 
                   <%}%> 
               <%})
@@ -46,7 +46,7 @@
         </table>
 
       <br>
-
+      
       <!-- Modal -->
       <div class="modal fade" id="modalNewAudit" tabindex="-1" aria-labelledby="modalNewAuditLabel" aria-hidden="true">
         <div class="modal-dialog">

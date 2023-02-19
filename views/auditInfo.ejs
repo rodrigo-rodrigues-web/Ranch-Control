@@ -46,8 +46,8 @@
               <td><%= animal.months_age %> </td>
               <td><%= animal.notes %> </td>
               <td>
-                <a href="/auditinfo/delete/<%= animal.tag %>?audit=<%= auditId %>" onclick="return confirm('Tem certeza?');"><i class="fa fa-trash-o text-primary m-2" style="font-size:24px"></i></a>       
-                <a href="/livestockdetails/<%= animal.tag %>"><i class="fa fa-arrows-alt m-2" aria-hidden="true" style="font-size:24px"></i></a>
+                <a href="/auditinfo/delete/<%= animal.tag %>?audit=<%= auditId %>" onclick="return confirm('Tem certeza?');" data-toggle="tooltip" data-placement="top" title="Delete Livestock from audit"><i class="fa fa-trash-o text-primary m-2" style="font-size:24px"></i></a>       
+                <a href="/livestockdetails/<%= animal.tag %>"><i class="fa fa-arrows-alt m-2" aria-hidden="true" style="font-size:24px" data-toggle="tooltip" data-placement="top" title="Go to livestock details"></i></a>
               </td>
             </tr>
           <%}) %>
