@@ -94,4 +94,34 @@ router.get('/livestockdetails/:tag', async function(req, res, next) {
   res.render('livestockdetails', details);
 });
 
+router.get('/registerlivestock', async function(req, res, next) {
+  let details ={};
+  details.hidden = 'hidden';
+  res.render('registerlivestock', details);
+});
+
+router.post('/registerlivestock', async function(req, res, next) {
+  req.body.category = categoryId(parseInt(req.body.weight));
+  await global.db.registerlivestock(req.body.notes, req.body.livestocktype, req.body.tag, req.body.category, req.body.color, req.body.weight, req.body.birth);
+  res.redirect('/');
+});
+
+function categoryId(w) {
+  const weight = parseInt(w);
+  
+  if (weight < 200) {
+    return 100;
+  } else if(weight < 300){
+    return 200;
+  } else if (weight < 450){
+    return 300;
+  } else if(weight < 500){
+    return 400;
+  } else if(weight < 600){
+    return 500;
+  } else {
+    return 600;
+  }
+}
+
 module.exports = router;

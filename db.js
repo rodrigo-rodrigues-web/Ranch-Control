@@ -88,6 +88,14 @@ async function getLivestockDetails(tag){
 
     return rows[0];
 }
+async function registerlivestock(notes, livestocktype, tag, category_id, color, weight, date_of_birth){
+    const conn = await connect();
+    const sql = "INSERT INTO livestock (note, fk_livestock_type_id, tag, fk_category_id, color, weight, date_of_birth) VALUES (?, ?, ?, ?, ?, ?, ?);";
+    return await conn.query(sql, [notes, livestocktype, tag, category_id, color, weight, date_of_birth]);
+    
+}
+
+
 module.exports = {getAudits, addAudit, getAuditInfo, getAuditName, 
                 getUnauditedItems, addLivestockAudit, removeLivestockAudit,
-                removeAudit, getAuditByName, getLivestockDetails}
+                removeAudit, getAuditByName, getLivestockDetails, registerlivestock}

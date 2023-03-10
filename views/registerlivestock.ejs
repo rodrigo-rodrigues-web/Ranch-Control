@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Register</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  </head>
+  <body>
+    <!--Navigation bar-->
+    <%- include('./nav'); %>
+
+    <!--end of Navigation bar-->
+  
+    <div class="container">
+        <h1 class="display-4">Register a New Livestock </h1>
+        <form action="registerlivestock" method="POST">
+            <div class="form-row">
+              <div class="form-group col-sm-6">                
+                <label for="livestockType">Type</label>
+                <select name="livestocktype" class="custom-select" id="livestockType">
+                    <option selected>Choose...</option>                    
+                    <option value="1">Vacas de Leite</option>
+                    <option value="2">Bezerros Vaca de Leite</option>
+                    <option value="3">Gado Nelore</option>
+                    <option value="4">Bezerros Gado Nelore</option>
+                    <option value="5">Touros</option>
+                    <option value="6">Gado Comum</option>
+                    <option value="8">Garrotes</option>
+                    <option value="9">Bezerros Apartados</option>
+                </select>                  
+              </div>
+              <div class="form-group col-sm-3">
+                <label for="inputTag">TAG</label>
+                <input name="tag" type="number" min="1" max="999" class="form-control" id="inputTag" placeholder="Livestock tag">
+              </div>
+              <div class="form-group col-sm-3">
+                <label for="inputBirth">Date of Birth</label>
+                <input name="birth" type="date" class="form-control" id="inputBirth">
+              </div>              
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="inputNotes">Notes</label>
+                <input name="notes" type="text" class="form-control" id="inputNotes" placeholder="My notes...">
+              </div>
+         
+              <div class="form-group col-md-3">
+                <label for="inputColor">Color</label>
+                <select name="color" class="custom-select" id="inputColor">
+                    <option selected>Choose...</option>                    
+                    <option>Black</option>
+                    <option>White</option>
+                    <option>Brown</option>
+                    <option>Mixed</option>
+               
+                </select>
+              </div>
+              <div class="form-group col-md-3">
+                <label for="inputWeight">Weight</label>
+                <input name="weight" type="number" min="0" min="999" class="form-control" id="inputWeight" placeholder="Weight in kilograms" value="">
+              </div>
+            </div>
+            <!-- <div class="form-row">      
+              <div class="form-group col-md-6">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <label class="input-group-text" for="category">Category</label>
+                  </div>
+                  <select name="category" class="custom-select" id="category">                    
+                    <option selected>Choose...</option>                    
+                    <option value="100">Vitelo</option>
+                    <option value="200">Novilho super precoce</option>
+                    <option value="300">Novilho precoce</option>
+                    <option value="">Novilho</option>
+                    <option value="">Boi</option>
+                    <option value="">Touros</option>
+                  </select>
+                </div>
+              </div>          
+            </div> -->
+            <!-- Vaccine list start-->
+            <h3><small class="text-muted">Vaccines</small></h3>
+            <table class="table">
+              <thead class="thead-dark">
+                <tr>
+                  <th scope="col">Name</th>
+                  <th scope="col">Manufacturer</th>
+                  <th scope="col">Date</th>
+                </tr>
+              </thead>
+              <tbody>
+              
+                
+              </tbody>
+            </table>
+            <!-- Vaccine list end-->
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+    </div> <!-- End of Container-->
+
+    <!-- Bootstrap CDN -->
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script> 
+    
+    <script src="/javascripts/scripts.js"></script>
+
+    </body>
+</html>
