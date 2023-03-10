@@ -89,7 +89,7 @@ router.get('/livestockdetails/:tag', async function(req, res, next) {
   const tag = req.params.tag;
   let details = await global.db.getLivestockDetails(tag);
   details.hidden = 'hidden';
-  if (details.date_of_birth)  details.date_of_birth = details.date_of_birth.toISOString().substr(0, 10);
+  // if (details.date_of_birth)  details.date_of_birth = details.date_of_birth.toISOString().substr(0, 10);
   console.log(details);
   res.render('livestockdetails', details);
 });

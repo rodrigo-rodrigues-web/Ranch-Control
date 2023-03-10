@@ -80,9 +80,9 @@ async function removeAudit(id){
 }
 async function getLivestockDetails(tag){
     const conn = await connect();
-    const sql = "SELECT l.tag, TIMESTAMPDIFF(MONTH, l.date_of_birth, CURRENT_date()) as 'months_age', l.note, l.color, l.weight, l.date_of_birth, lt.name as 'type', c.stage FROM livestock as l, livestock_type as lt, category as c WHERE l.fk_livestock_type_id = lt.id AND  l.fk_category_id = c.id AND l.tag = ?;";
+    const sql = "SELECT l.tag, TIMESTAMPDIFF(MONTH, l.date_of_birth, CURRENT_date()) as 'months_age', l.note, l.color, l.weight, CAST(l.date_of_birth AS CHAR) as date_of_birth, lt.name as 'type', c.stage FROM livestock as l, livestock_type as lt, category as c WHERE l.fk_livestock_type_id = lt.id AND  l.fk_category_id = c.id AND l.tag = ?;";
     const [rows] = await conn.query(sql, tag);
-    const sql2 = "SELECT v.name, v.manufacturer, lv.date FROM livestock_vaccine as lv, vaccine as v WHERE fk_livestock_id = (SELECT id FROM livestock WHERE tag = ?) AND v.id=lv.fk_vaccine_id;"
+    const sql2 = "SELECT v.name, v.manufacturer, CAST(lv.date AS CHAR) as date FROM livestock_vaccine as lv, vaccine as v WHERE fk_livestock_id = (SELECT id FROM livestock WHERE tag = ?) AND v.id=lv.fk_vaccine_id;"
     const [vaccines] = await conn.query(sql2, tag);
     rows[0].vaccines = vaccines;
 

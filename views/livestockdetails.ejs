@@ -64,6 +64,32 @@
                 </div>
               </div>          
             </div>
+            <!-- Vaccine list start-->
+            <h3><small class="text-muted">Vaccines</small></h3>
+            <table class="table">
+              <thead class="thead-dark">
+                <tr>
+                  <th scope="col">Name</th>
+                  <th scope="col">Manufacturer</th>
+                  <th scope="col">Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% if(!vaccines || vaccines.length === 0) { %>
+                  <td>No Vaccine Registered</td>
+                <% } else {
+                   vaccines.forEach(function(vaccine){ %>
+                    <tr>
+                      <th scope="row"><%= vaccine.name %></th>
+                      <td><%= vaccine.manufacturer %></td>
+                      <td><%= vaccine.date %></td>
+                    </tr>
+                    <%})
+                  }%>
+                
+              </tbody>
+            </table>
+            <!-- Vaccine list end-->
             <div class="form-group">
               <div class="form-check">
                 <input class="form-check-input" type="checkbox" id="gridCheck">

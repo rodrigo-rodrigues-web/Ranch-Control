@@ -26,7 +26,7 @@
           <tbody>
             
             <% if(!audits || audits.length === 0) { %>
-              <td><a href="/auditinfo/<%= audits.id %> " class="list-group-item list-group-item-action">No Audit Registered</button></td>
+              <td><a href="/auditinfo/<%= audits.id %> " class="list-group-item list-group-item-action">No Audit Registered</a></td>
             <% } else { 
               audits.forEach(function(audit){ %>
                   <% if(audit.status == 'started') { %>
