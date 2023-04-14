@@ -46,6 +46,7 @@ router.get('/auditinfo/:id', async function(req, res, next) {
   auditinfo.auditId= id;
   auditinfo.jsontags= JSON.stringify(unauditedItems[0]);
   auditinfo.hidden = 'hidden';
+  console.log(auditinfo);
   res.render('auditInfo', auditinfo);
 });
 
