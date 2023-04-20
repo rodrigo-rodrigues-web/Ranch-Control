@@ -12,3 +12,6 @@ It is a Full Stack Project that uses Node JS and the Express framework in the ba
 
 ## Adding livestock into a newly created audit
 ![Recording #11](https://user-images.githubusercontent.com/55005796/233377186-ebf59d14-2290-4d1e-963e-a5db82a0b52d.gif)
+
+## Register new livestock page
+<img width="959" alt="image" src="https://user-images.githubusercontent.com/55005796/233378065-dfabf203-44c1-4100-a2aa-31021b7b844a.png">
